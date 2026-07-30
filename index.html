@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Diary — What should we watch?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">Movie Diary</div>
+    <div class="header-right">
+      <span class="server-tag" id="serverTag"></span>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+        <span class="theme-toggle-track">
+          <span class="theme-toggle-thumb"></span>
+        </span>
+        <span class="theme-toggle-label" id="themeToggleLabel">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls">
+      <div class="search-row">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search a title..."
+          autocomplete="off"
+        >
+        <button id="searchBtn">Search</button>
+      </div>
+
+      <div class="filter-row">
+        <select id="genreFilter">
+          <option value="">All genres</option>
+        </select>
+
+        <select id="sortFilter">
+          <option value="popularity.desc">Most popular</option>
+          <option value="vote_average.desc">Highest rated</option>
+          <option value="primary_release_date.desc">Newest first</option>
+        </select>
+
+        <select id="yearFilter">
+          <option value="">Any year</option>
+        </select>
+
+        <button id="clearFiltersBtn" class="ghost-btn">Clear filters</button>
+      </div>
+    </section>
+
+    <section id="statusBanner" class="status-banner hidden"></section>
+
+    <section id="resultsGrid" class="results-grid"></section>
+
+    <div id="pagination" class="pagination hidden">
+      <button id="prevPageBtn" class="ghost-btn">Previous</button>
+      <span id="pageIndicator"></span>
+      <button id="nextPageBtn" class="ghost-btn">Next</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      This project uses the TMDB API.
+      Movie data and images provided by
+      <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">The Movie Database (TMDB)</a>.
+    </p>
+  </footer>
+
+  <!-- Detail overlay -->
+  <div id="detailOverlay" class="overlay hidden">
+    <div class="detail-card">
+      <button id="closeDetailBtn" class="close-btn">&times;</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <!-- Comparison tray -->
+  <div id="compareTray" class="compare-tray hidden">
+    <div class="tray-inner">
+      <div class="tray-label">Comparing</div>
+      <div id="trayItems" class="tray-items"></div>
+      <button id="openCompareBtn" class="primary-btn" disabled>Compare</button>
+    </div>
+  </div>
+
+  <!-- Full comparison overlay -->
+  <div id="compareOverlay" class="overlay hidden">
+    <div class="detail-card compare-card">
+      <button id="closeCompareBtn" class="close-btn">&times;</button>
+      <div id="compareContent"></div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
