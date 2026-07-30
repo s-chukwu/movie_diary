@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Movie Dairy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .not-found {
+    min-height: calc(100vh - 73px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .not-found .code {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -1px;
+    font-size: 5rem;
+    color: var(--blue);
+    margin: 0;
+  }
+  .not-found p {
+    font-family: var(--font-body);
+    color: var(--text-muted);
+    max-width: 340px;
+    margin: 12px 0 24px;
+  }
+  .not-found a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    background: var(--blue);
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: var(--radius);
+  }
+  .not-found a:hover { background: var(--blue-light); }
+</style>
+<script>
+  // Match whatever theme the user last chose, before the page paints.
+  (function () {
+    var saved = localStorage.getItem("movie-dairy-theme");
+    if (saved === "light" || saved === "dark") {
+      document.documentElement.setAttribute("data-theme", saved);
+    }
+  })();
+</script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">Movie Dairy</div>
+  </header>
+
+  <div class="not-found">
+    <p class="code">404</p>
+    <p>This page doesn't exist. The title you're looking for might have moved, or the link is off.</p>
+    <a href="/">Back to Movie Dairy</a>
+  </div>
+
+</body>
+</html>

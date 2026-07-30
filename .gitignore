@@ -1,0 +1,3 @@
+# Never commit the real API key and my junk files
+config.js
+.vscode/
