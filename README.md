@@ -6,6 +6,8 @@ This was built for the "Playing Around with APIs" Web Infrastructure Summative. 
 
 ## Live links
 
+- Web App - https://www.chukwu.tech
+- Demo Video - https://youtu.be/ZDRoqZ6dp20
 
 ## Features
 
