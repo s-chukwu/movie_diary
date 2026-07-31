@@ -45,7 +45,10 @@ Google Fonts (Plus Jakarta Sans, Inter) are loaded from Google's CDN.
 
 ## Running it locally
 
-1. Clone this repo `git clone https://github.com/s-chukwu/movie_diary`
+1. Clone this repo 
+```
+git clone https://github.com/s-chukwu/movie_diary
+```
 2. Copy `config.example.js` to `config.js`
 3. Get a free API key at https://www.themoviedb.org/settings/api and paste it into `config.js`
 4. Open `index.html` in your browser
@@ -62,6 +65,43 @@ No build step, no npm install, nothing else needed.
 - `404.html` — custom not-found page
 - `.gitignore` — keeps config.js out of the repo
 
-## Deployment
 
-Deployed on two servers (web01, web02) behind a load balancer. Files are copied over with scp, then moved into `/var/www/html/` on each server. The X-Served-By header confirms which server answered a request, which is how the load balancing is verified.
+## Deployment
+ 
+Deployed on two servers (web01, web02) behind an nginx load balancer (lb01). No CI/CD, files are copied over with scp, then moved into `/var/www/html/` on each server. The X-Served-By header confirms which server answered a request, which is how the load balancing is verified.
+ 
+**On your local machine**, make sure `config.js` has the real API key in it (not the placeholder), then copy the files to each server's `/tmp/`:
+ 
+```
+scp -i <path-to-ssh-key> -o StrictHostKeyChecking=no index.html styles.css app.js config.js 404.html <user>@<web01-ip>:/tmp/
+```
+ 
+**SSH into web01** and move the files into place:
+ 
+```
+ssh -i <path-to-ssh-key> <user>@<web01-ip>
+sudo cp /tmp/index.html /tmp/styles.css /tmp/app.js /tmp/config.js /tmp/404.html /var/www/html/
+```
+ 
+**Confirm it's serving correctly:**
+ 
+```
+curl -sI localhost
+```
+ 
+**Repeat the same two steps for web02**, using its IP instead.
+ 
+**nginx config** (already set up on both servers, no changes needed here) points 404s at `404.html` and adds an `X-Served-By` header so you can tell which server answered:
+ 
+```
+add_header X-Served-By $hostname;
+error_page 404 /404.html;
+```
+ 
+**Verify the load balancer is actually splitting traffic** between both servers:
+ 
+```
+curl -sI https://<your-domain-or-load-balancer-ip> | grep -i x-served-by
+```
+ 
+Run that a few times — the value should alternate between web01 and web02.
